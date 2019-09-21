@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 VERSION?=latest
 TASK_IMAGES:=$(shell find tasks -name Dockerfile -printf '%h ')
-REGISTRY=hub.docker.com
+REGISTRY=aniketkul
 
 tasks/%: FORCE
 	set -e ;\
