@@ -1,0 +1,12 @@
+# binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# temp data and checkpoints
+data/
+tmp/
+.ipynb_checkpoints
+.build/
