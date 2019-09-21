@@ -1,0 +1,64 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: ml-pipeline-with-argo
+spec:
+  entrypoint: article-vectors
+  volumes:
+  - name: ml-pipeline-src
+    hostPath:
+      path: /Users/aniketkulkarni/data/ml-pipeline-src
+      type: Directory
+  templates:
+  # cloning the repo step
+  - name: clone-repo
+    container:
+      image: aniketkul/ml_pipeline_with_argo_clone_repo
+      command: [bash]
+      args: ["/run.sh"]
+      volumeMounts:
+      - name: ml-pipeline-src
+        mountPath: /data
+  # preprocessing for ML pipeline
+  - name: preprocess
+    container:
+      image: aniketkul/ml_pipeline_with_argo_preprocess
+      command: [python]
+      args: ["run.py"]
+      volumeMounts:
+      - name: ml-pipeline-src
+        mountPath: /data
+  # building ML model
+  - name: build-model
+    container:
+      image: aniketkul/ml_pipeline_with_argo_build_model
+      command: [python]
+      args: ["run.py"]
+      volumeMounts:
+      - name: ml-pipeline-src
+        mountPath: /data
+  # derive conclusion from ML pipeline
+  - name: conclude
+    container:
+      image: aniketkul/ml_pipeline_with_argo_conclude
+      command: [python]
+      args: ["run.py"]
+      volumeMounts:
+      - name: ml-pipeline-src
+        mountPath: /data
+  - name: article-vectors
+    dag:
+      tasks:
+      - name: source-code
+        template: clone-repo
+      - name: preprocessing-dataframing
+        template: preprocess
+        dependencies: [src]
+      - name: ml-model
+        template: build-model
+        dependencies: [dataframe]
+      - name: ml-conclusion
+        template: conclude
+        dependencies: [model]
+  
+        
