@@ -29,4 +29,3 @@ My goal is to leverage Kubernetes-native Argo workflows to deploy machine learni
 # How to execute:
 
 - `make start_notebooks` or directly `kubectl apply -f notebooks.yml`
-- 
