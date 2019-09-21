@@ -16,7 +16,7 @@ My goal is to leverage Kubernetes-native Argo workflows to deploy machine learni
 
 - `notebooks.yml`: defines a Kubernetes service and deployment for exploratory Jupyter Lab instance
 
-- `notebooks`: contains individual jupyter notebooks
+- `notebooks`: contains individual jupyter notebooks (.ipynb files)
 
 - `pipeline.yaml`: defines our Machine Learning pipeline in the form of the Argo workflow
 
