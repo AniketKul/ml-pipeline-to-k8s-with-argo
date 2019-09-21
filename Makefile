@@ -14,10 +14,10 @@ images: $(TASK_IMAGES)
 run: images
 		argo submit pipeline.yaml --watch
 
-start_notebook:
-		kubectl apply -f notebook.yaml
+start_notebooks:
+		kubectl apply -f notebooks.yaml
 
-stop_notebook:
+stop_notebooks:
 		kubectl delete deployment jupyter-notebook
 
 FORCE: ;
